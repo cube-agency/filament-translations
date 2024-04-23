@@ -1,9 +1,9 @@
 # Filament plugin for language/translations management
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/cubeagency/filament-translations.svg?style=flat-square)](https://packagist.org/packages/cubeagency/filament-translations)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cubeagency/filament-translations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cubeagency/filament-translations/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/cubeagency/filament-translations/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/cubeagency/filament-translations/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/cubeagency/filament-translations.svg?style=flat-square)](https://packagist.org/packages/cubeagency/filament-translations)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/cube-agency/filament-translations.svg?style=flat-square)](https://packagist.org/packages/cube-agency/filament-translations)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/cube-agency/filament-translations/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/cube-agency/filament-translations/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/cube-agency/filament-translations/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/cube-agency/filament-translations/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
+[![Total Downloads](https://img.shields.io/packagist/dt/cube-agency/filament-translations.svg?style=flat-square)](https://packagist.org/packages/cube-agency/filament-translations)
 
 Adds Language/Translations resources with import/export functionality.
 
@@ -12,7 +12,7 @@ Adds Language/Translations resources with import/export functionality.
 You can install the package via composer:
 
 ```bash
-composer require cubeagency/filament-translations
+composer require cube-agency/filament-translations
 ```
 
 Run migrations:
