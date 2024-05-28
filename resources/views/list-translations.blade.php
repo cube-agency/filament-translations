@@ -41,7 +41,7 @@
                                             <div class="flex max-w-max">
                                                 <div class="fi-ta-text-item inline-flex items-center gap-1.5">
                                                 <span
-                                                    class="fi-ta-text-item-label text-sm leading-6 text-gray-950 dark:text-white  "
+                                                    class="fi-ta-text-item-label text-sm leading-6 text-gray-950 dark:text-white whitespace-normal"
                                                     style="">
                                                     {{ $translation->{$column} }}
                                                 </span>
