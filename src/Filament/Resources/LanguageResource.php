@@ -24,7 +24,8 @@ class LanguageResource extends Resource
             ->schema([
                 TextInput::make('locale')
                     ->required()
-                    ->unique(Language::class, 'locale', fn($record) => $record),
+                    ->unique(Language::class, 'locale', fn($record) => $record)
+                    ->rules(['alpha', 'lowercase', 'size:2']),
                 TextInput::make('name')
                     ->required()
             ]);
