@@ -23,7 +23,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "arbory/translation": "^2.8",
+        "arbory/translation": "^2.8|^2.9",
         "bezhansalleh/filament-language-switch": "^3.1",
         "eightynine/filament-excel-import": "^3.0",
         "filament/filament": "^3.0",
