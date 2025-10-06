@@ -1,19 +1,19 @@
 <?php
 
-namespace CubeAgency\FilamentTranslations\Filament\Resources\LanguageResource\Pages;
+namespace CubeAgency\FilamentTranslations\Filament\Resources\Languages\Pages;
 
 use CubeAgency\FilamentTranslations\Filament\Resources\LanguageResource;
-use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
+use Filament\Actions\DeleteAction;
+use Filament\Resources\Pages\EditRecord;
 
-class ListLanguages extends ListRecords
+class EditLanguage extends EditRecord
 {
     protected static string $resource = LanguageResource::class;
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

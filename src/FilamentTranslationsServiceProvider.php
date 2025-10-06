@@ -2,7 +2,7 @@
 
 namespace CubeAgency\FilamentTranslations;
 
-use BezhanSalleh\FilamentLanguageSwitch\LanguageSwitch;
+use BezhanSalleh\LanguageSwitch\LanguageSwitch;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Waavi\Translation\Repositories\LanguageRepository;
@@ -16,10 +16,6 @@ class FilamentTranslationsServiceProvider extends PackageServiceProvider
     public function configurePackage(Package $package): void
     {
         $package->name(static::$name);
-
-        if (file_exists($package->basePath('/../resources/views'))) {
-            $package->hasViews(static::$viewNamespace);
-        }
     }
 
     public function packageRegistered(): void
