@@ -39,7 +39,7 @@ class ListTranslations extends ListRecords
                 TextColumn::make('item'),
                 ...$this->getLanguageColumns(),
             ])
-            ->records(function (string $search = null, int $page, int $recordsPerPage): LengthAwarePaginator {
+            ->records(function (int $page, int $recordsPerPage, ?string $search = null): LengthAwarePaginator {
                 $query = $this->getTranslationsQuery();
 
                 if ($search) {
