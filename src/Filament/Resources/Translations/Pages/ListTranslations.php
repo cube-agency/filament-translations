@@ -7,7 +7,8 @@ use CubeAgency\FilamentTranslations\Filament\Exports\TranslationsExport;
 use CubeAgency\FilamentTranslations\Filament\Imports\TranslationsImport;
 use CubeAgency\FilamentTranslations\Filament\Resources\TranslationResource;
 use CubeAgency\FilamentTranslations\Traits\UsesLocalization;
-use EightyNine\ExcelImport\ExcelImportAction;
+use CubeAgency\FilamentExcel\Actions\ExcelExportAction;
+use CubeAgency\FilamentExcel\Actions\ExcelImportAction;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Textarea;
@@ -17,7 +18,6 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Table;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
-use pxlrbt\FilamentExcel\Actions\ExportAction;
 use Waavi\Translation\Facades\TranslationCache;
 use Waavi\Translation\Models\Translation;
 
@@ -95,12 +95,11 @@ class ListTranslations extends ListRecords
     {
         return [
             ExcelImportAction::make()
+                ->withoutMapping()
                 ->use(TranslationsImport::class),
 
-            ExportAction::make()
-                ->exports([
-                    TranslationsExport::make()
-                ])
+            ExcelExportAction::make()
+                ->use(TranslationsExport::class),
         ];
     }
 
