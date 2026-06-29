@@ -2,37 +2,36 @@
 
 namespace CubeAgency\FilamentTranslations\Filament\Exports;
 
+use CubeAgency\FilamentExcel\Exports\Columns\Column;
+use CubeAgency\FilamentExcel\Exports\ExcelExport;
 use CubeAgency\FilamentTranslations\Traits\UsesLocalization;
-use pxlrbt\FilamentExcel\Columns\Column;
-use pxlrbt\FilamentExcel\Exports\ExcelExport;
+use Illuminate\Database\Query\Builder;
 
 class TranslationsExport extends ExcelExport
 {
     use UsesLocalization;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
-        $columns = [
-            Column::make('namespace'),
-            Column::make('group'),
-            Column::make('item'),
-        ];
+        $this->filename('translations');
 
-        foreach ($this->languageRepository()->all() as $language) {
-            $columns[] = Column::make($language->locale);
-        }
+        $this->columns(function (): array {
+            $columns = [
+                Column::make('namespace'),
+                Column::make('group'),
+                Column::make('item'),
+            ];
 
-        $this->withColumns($columns);
+            foreach ($this->languageRepository()->all() as $language) {
+                $columns[] = Column::make($language->locale);
+            }
+
+            return $columns;
+        });
     }
 
-    public function query()
+    public function query(): Builder
     {
-        $query = $this->getTranslationsQuery();
-
-        if ($this->isQueued()) {
-            $this->livewire = null;
-        }
-
-        return $query->orderBy('group');
+        return $this->getTranslationsQuery()->orderBy('group');
     }
 }

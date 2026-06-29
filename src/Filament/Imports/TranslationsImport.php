@@ -2,54 +2,68 @@
 
 namespace CubeAgency\FilamentTranslations\Filament\Imports;
 
+use CubeAgency\FilamentExcel\Imports\Columns\ImportColumn;
+use CubeAgency\FilamentExcel\Imports\ExcelImport;
 use CubeAgency\FilamentTranslations\Traits\UsesLocalization;
-use Maatwebsite\Excel\Concerns\ToArray;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Waavi\Translation\Facades\TranslationCache;
 
-class TranslationsImport implements ToArray, WithHeadingRow
+class TranslationsImport extends ExcelImport
 {
     use UsesLocalization;
 
-    public function array(array $array)
+    protected function setUp(): void
     {
-        foreach ($array as $item) {
-            $namespace = $item['namespace'];
-            $group = $item['group'];
+        $this->columns(function (): array {
+            $columns = [
+                ImportColumn::make('namespace')->required(),
+                ImportColumn::make('group')->required(),
+                ImportColumn::make('item')->required(),
+            ];
 
             foreach ($this->languageRepository()->all() as $language) {
-                $text = $language->locale;
-
-                if (!isset($item[$text])) {
-                    continue;
-                }
-
-                $translation = $this->translationRepository()->findByCode(
-                    $language->locale,
-                    $namespace,
-                    $group,
-                    $item['item']
-                );
-
-                if (!$translation) {
-                    $this->translationRepository()->create([
-                        'locale' => $language->locale,
-                        'namespace' => $namespace,
-                        'group' => $group,
-                        'item' => $item['item'],
-                        'text' => $item[$text] ?? ''
-                    ]);
-
-                    continue;
-                }
-
-                $this->translationRepository()->updateAndLock(
-                    $translation->id,
-                    $item[$text] ?? ''
-                );
+                $columns[] = ImportColumn::make($language->locale);
             }
-        }
 
-        TranslationCache::flushAll();
+            return $columns;
+        });
+
+        $this->saveUsing(fn (array $data) => $this->importRow($data));
+
+        $this->afterImport(fn () => TranslationCache::flushAll());
+    }
+
+    protected function importRow(array $data): void
+    {
+        foreach ($this->languageRepository()->all() as $language) {
+            $locale = $language->locale;
+
+            if (! array_key_exists($locale, $data) || $data[$locale] === null) {
+                continue;
+            }
+
+            $translation = $this->translationRepository()->findByCode(
+                $locale,
+                $data['namespace'],
+                $data['group'],
+                $data['item'],
+            );
+
+            if (! $translation) {
+                $this->translationRepository()->create([
+                    'locale' => $locale,
+                    'namespace' => $data['namespace'],
+                    'group' => $data['group'],
+                    'item' => $data['item'],
+                    'text' => $data[$locale],
+                ]);
+
+                continue;
+            }
+
+            $this->translationRepository()->updateAndLock(
+                $translation->id,
+                $data[$locale],
+            );
+        }
     }
 }
